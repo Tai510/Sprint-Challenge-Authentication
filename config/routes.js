@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 
 const { authenticate } = require('../auth/authenticate');
-const Users = require('../users/users-model.js')
+const Users = require('../users/users-model.js');
+const secrets = require('../config/secret.js');
 
 module.exports = server => {
   server.post('/api/register', register);
@@ -70,10 +71,8 @@ function getJokes(req, res) {
 
 function generateToken(user) {
   const payload = {
-    subject: user.id, // standard claim = sub => subject
+    subject: user.id, 
     username: user.username,
-    roles: ['student'],
-    
   };
 
   const options = {
